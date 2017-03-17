@@ -1,2 +1,4 @@
-# duckiesoft
-Software for Duckiebot
+# DuckieSoft
+
+Tools and source code for Duckiebot.
+

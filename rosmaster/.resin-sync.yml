@@ -1,0 +1,9 @@
+local_resinos:
+  app-name: rosmaster
+  build-triggers:
+    - Dockerfile: dc7f5b5d024fe9aa53ed85e335eac2ae323b0e6c489d058c15b8bb729b14e9fa
+  environment: []
+ignore:
+  - .git
+destination: /usr/src/app
+progress: true
