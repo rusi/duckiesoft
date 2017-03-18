@@ -1,8 +1,0 @@
-local_resinos:
-  app-name: rosnode
-  build-triggers:
-  environment: []
-ignore:
-  - .git
-destination: /usr/src/app
-progress: true

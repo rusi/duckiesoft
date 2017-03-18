@@ -1,24 +1,23 @@
 #!/bin/bash
 
+# Local Master
+ROS_MASTER_URL="http://rosmaster:11311"
+CONTAINER="rosdev"
+
+
 DIR=$( cd "$(dirname "$0")" ; pwd -P )
-
-source $DIR/common.sh
-
+HOST_IP=$(ifconfig en0 | grep inet | awk '$1=="inet" {print $2}')
 xhost + $HOST_IP
 
-CONTAINER="rosdev"
+RUN_CMD="run --env ROS_MASTER_URI"
 RUN_FLAGS="-it --rm"
 
-docker ps | grep -q rosdev
+docker ps | grep -q rosmaster
 if [ $? -ne 0 ]; then
-	CONTAINER="--name rosmaster rosdev roscore"
+	CONTAINER="--name rosmaster $CONTAINER roscore"
 	RUN_FLAGS="-d"
 	echo "ROS Master NOT running... Starting..."
 fi
-
-# Comment out the next line if you want to use Duckiebot's ROS Master
-RUN_CMD="run --env ROS_MASTER_URI=http://rosmaster:11311"
-
 
 docker $RUN_CMD $RUN_FLAGS \
 	-e DISPLAY=$HOST_IP:0 \

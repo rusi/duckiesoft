@@ -20,7 +20,6 @@ RUN apt-get update \
     && apt-get -y -q install \
         ros-${ROS_DISTRO}-ros-tutorials
 
-# Replace 1000 with your user / group id
 RUN export uid=1000 gid=1000 && \
     mkdir -p /workspace && \
     echo "ros:x:${uid}:${gid}:ros,,,:/workspace:/bin/bash" >> /etc/passwd && \
