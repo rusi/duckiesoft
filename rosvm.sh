@@ -7,4 +7,6 @@ source $DIR/common.sh
 docker $RUN_CMD -it --rm \
 	-v ~/.ros:/root/.ros/ \
 	-v ${PWD}:/workspace \
-	rosdev $@
+	--net host \
+	--env ROS_IP=172.16.25.163 \
+	ros:indigo $@
