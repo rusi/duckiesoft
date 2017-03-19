@@ -1,7 +1,10 @@
 #!/bin/bash
 
 # Local Master
-ROS_MASTER_URL="http://rosmaster:11311"
+if [ -z "$ROS_MASTER_URI" ]; then
+	ROS_MASTER_URI="http://rosmaster:11311"
+fi
+echo $ROS_MASTER_URI
 CONTAINER="rosdev"
 
 
@@ -9,8 +12,14 @@ DIR=$( cd "$(dirname "$0")" ; pwd -P )
 HOST_IP=$(ifconfig en0 | grep inet | awk '$1=="inet" {print $2}')
 xhost + $HOST_IP
 
-RUN_CMD="run --env ROS_MASTER_URI"
+RUN_CMD="run --env ROS_MASTER_URI=$ROS_MASTER_URI"
 RUN_FLAGS="-it --rm"
+
+docker network ls | grep -q duckienet
+if [ $? -ne 0 ]; then
+	echo "Duckienet missing; creating..."
+	docker network create duckienet
+fi
 
 docker ps | grep -q rosmaster
 if [ $? -ne 0 ]; then

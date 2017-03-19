@@ -20,6 +20,9 @@ RUN apt-get update \
     && apt-get -y -q install \
         ros-${ROS_DISTRO}-ros-tutorials
 
+RUN rm /etc/ros/rosdep/sources.list.d/20-default.list \
+	&& rosdep init
+
 RUN export uid=1000 gid=1000 && \
     mkdir -p /workspace && \
     echo "ros:x:${uid}:${gid}:ros,,,:/workspace:/bin/bash" >> /etc/passwd && \
@@ -30,6 +33,8 @@ RUN export uid=1000 gid=1000 && \
 
 USER ros
 ENV HOME /workspace
+
+RUN rosdep update
 
 VOLUME ["/workspace"]
 

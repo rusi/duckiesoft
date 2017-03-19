@@ -16,9 +16,17 @@ RUN export uid=1000 gid=1000 && \
     chmod 0440 /etc/sudoers.d/ros && \
     chown ${uid}:${gid} -R /ws
 
+RUN rm /etc/ros/rosdep/sources.list.d/20-default.list \
+	&& rosdep init
+
 USER ros
 ENV HOME /ws
+
+RUN rosdep update
 
 VOLUME ["/ws"]
 
 WORKDIR /ws
+
+ENTRYPOINT ["/bin/bash", "/ros_entrypoint.sh"]
+CMD ["/bin/bash"]
