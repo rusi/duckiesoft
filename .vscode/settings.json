@@ -1,0 +1,27 @@
+// Place your settings in this file to overwrite default and user settings.
+{
+    "files.exclude": {
+        "**/.git": true,
+        "**/.DS_Store": true,
+
+        "ros_ws/.cache": true,
+        "ros_ws/.catkin_tools": true,
+        "ros_ws/.config": true,
+        "ros_ws/.ros": true,
+        "ros_ws/build": true,
+        "ros_ws/devel": true,
+        "ros_ws/install": true,
+        "ros_ws/logs": true,
+
+        "**/.bash_history": true,
+        "**/.vagrant": true,
+
+        "**/node_modules": true, // this excludes all folders 
+                                 // named "node_modules" from 
+                                 // the explore tree
+        // alternative version
+        "node_modules": true    // this excludes the folder 
+                                // only from the root of
+                                // your workspace 
+    }
+}
