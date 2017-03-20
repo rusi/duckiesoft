@@ -10,7 +10,9 @@ from picamera import PiCamera
 from picamera.array import PiRGBArray
 
 class CameraNode(object):
-    """ Pi_Camera ROS Node"""
+    """ Pi_Camera ROS Node
+    Based on https://github.com/duckietown/Software/blob/master/catkin_ws/src/pi_camera/src/camera_node_sequence.py
+    """
     def __init__(self):
         self.node_name = rospy.get_name()
         rospy.loginfo("[%s] Initializing......" %(self.node_name))
