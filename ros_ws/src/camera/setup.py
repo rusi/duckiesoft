@@ -8,9 +8,8 @@ from catkin_pkg.python_setup import generate_distutils_setup
 
 setup_args = generate_distutils_setup(
     packages=['camera'],
-    #scripts=['bin/myscript'],
-    #package_dir={'': 'include'}
-    package_dir={'': 'src'}
+    package_dir={'': 'src'},
+    # scripts=['scripts/camera_node'], # places scripts into install/bin
 )
 
 setup(**setup_args)

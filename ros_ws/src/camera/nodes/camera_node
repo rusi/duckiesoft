@@ -1,0 +1,10 @@
+#!/usr/bin/env python
+
+import rospy
+import camera.camera_node_seq
+
+if __name__ == '__main__':
+    try:
+        camera.camera_node_seq.main()
+    except rospy.ROSInterruptException:
+        pass

@@ -1,5 +1,3 @@
-#!/usr/bin/env python
-
 import thread
 import io
 
@@ -115,6 +113,7 @@ def main():
     rospy.on_shutdown(camera_node.on_shutdown)
     thread.start_new_thread(camera_node.start_capturing, ())
     rospy.spin()
+
 
 if __name__ == '__main__':
     try:
