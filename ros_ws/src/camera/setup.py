@@ -2,6 +2,7 @@
 # !!! USE CATKIN INSTEAD: $ catkin build
 # For more info, see:
 #    http://docs.ros.org/api/catkin/html/user_guide/setup_dot_py.html
+#    http://docs.ros.org/api/catkin/html/howto/format2/installing_python.html
 
 from distutils.core import setup
 from catkin_pkg.python_setup import generate_distutils_setup
