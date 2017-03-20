@@ -2,7 +2,13 @@
 .bash_history
 .config/
 .ros/
+build/
 devel/
 logs/
 install/
+
+build_*/
+devel_*/
+logs_*/
+install_*/
 

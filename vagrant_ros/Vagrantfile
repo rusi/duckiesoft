@@ -45,7 +45,7 @@ Vagrant.configure(2) do |config|
   # the path on the host to the actual folder. The second argument is
   # the path on the guest to mount the folder. And the optional third
   # argument is a set of non-required options.
-  config.vm.synced_folder "../ros_ws", "/home/ros/ws",
+  config.vm.synced_folder "../", "/home/ros/ws",
     owner: "ros",
     group: "users"
 
@@ -77,8 +77,28 @@ Vagrant.configure(2) do |config|
   config.vm.provision "shell", inline: <<-SHELL
     sudo apt-get update
     sudo apt-get install -y python-catkin-tools
-    #source ~/.profile && [ -z "$ROS_MASTER_URI" ] && echo "export ROS_MASTER_URI=http://duckiebot.local:11311" >> ~/.profile
+    sudo apt-get autoremove -y
+    # install Docker CE
+    sudo apt-get -y install apt-transport-https ca-certificates curl
+    curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+    sudo add-apt-repository \
+       "deb [arch=amd64] https://download.docker.com/linux/ubuntu \
+       $(lsb_release -cs) \
+       stable"
+    sudo apt-get update
+    sudo apt-get -y install docker-ce
+
+    #source ~/.bashrc && [ -z "$ROS_MASTER_URI" ] && echo "export ROS_MASTER_URI=http://duckiebot.local:11311" >> ~/.bashrc
   SHELL
+
+  #config.ssh.username = "ros" # TODO: need to setup SSH keys for this to work as unpriviledged user
+  $script = <<-SCRIPT
+    # install docker version manager; NOTE: has to run as User
+    su - ros -c "curl -sL https://howtowhale.github.io/dvm/downloads/latest/install.sh | sh"
+    su - ros -c 'echo "source $HOME/.dvm/dvm.sh" >> ~/.bashrc'
+    su - ros -c echo 'bash completion for DVM: [[ -r $DVM_DIR/bash_completion ]] && . $DVM_DIR/bash_completion" >> ~/.bashrc'
+  SCRIPT
+  config.vm.provision "shell", inline: $script #, privileged: false
 
   # delete default gw on eth0
   #config.vm.provision "shell", run: "always",

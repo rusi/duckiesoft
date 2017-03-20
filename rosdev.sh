@@ -21,17 +21,19 @@ if [ $? -ne 0 ]; then
 	docker network create duckienet
 fi
 
-docker ps | grep -q rosmaster
-if [ $? -ne 0 ]; then
-	CONTAINER="--name rosmaster $CONTAINER roscore"
-	RUN_FLAGS="-d"
-	echo "ROS Master NOT running... Starting..."
-fi
+# TOOD: there should be a better way to check if ROS master is running...
+#docker ps | grep -q rosmaster
+#if [ $? -ne 0 ]; then
+#	CONTAINER="--name rosmaster $CONTAINER roscore"
+#	RUN_FLAGS="-d"
+#	echo "ROS Master NOT running... Starting..."
+#fi
 
 docker $RUN_CMD $RUN_FLAGS \
 	-e DISPLAY=$HOST_IP:0 \
 	-v /tmp/.X11-unix:/tmp/.X11-unix \
-	-v ~/.ros:/root/.ros/ \
-	-v ${PWD}:/workspace \
+	-v ${PWD}:/home/ros/ws \
 	--net duckienet \
 	$CONTAINER $@
+
+# 	-v ~/.ros:/root/.ros/ \
