@@ -8,4 +8,8 @@ if [ -e /dev/vchiq ]; then
     sudo chmod 0777 /dev/vchiq
 fi
 
+if [ -f install/setup.bash ]; then
+    source install/setup.bash
+fi
+
 exec "$@"
